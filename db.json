@@ -1,0 +1,28 @@
+{
+  "employee": [
+    {
+      "id": 1,
+      "name": "Motshabi Maleke",
+      "email": "motshabielizabeth1@gmail.com",
+      "phone": "0746195664"
+    },
+    {
+      "id": "5",
+      "name": "Tshego",
+      "email": "fggfhhdjrui@gmail.com",
+      "phone": "075"
+    },
+    {
+      "id": "25",
+      "name": "Nnyana ",
+      "email": "gfmnbj@gmail.com",
+      "phone": "072222"
+    },
+    {
+      "id": "4",
+      "name": "sonny",
+      "email": "sonny@gmail.com",
+      "phone": "07542566"
+    }
+  ]
+}
