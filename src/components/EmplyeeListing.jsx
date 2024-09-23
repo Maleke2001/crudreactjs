@@ -5,29 +5,34 @@ const EmployeeListing = () => {
   const [employeeData, setEmployeeData] = useState([]);
   const navigator = useNavigate();
 
-  const removeDetail = (id) => {
+  const removeDetail = async (id) => { // Accept id as a parameter
     if (window.confirm("Are you sure you want to delete this employee?")) {
-      fetch(`http://localhost:8000/employee/${id}`, { // Use backticks here
-        method: 'DELETE',
-      })
-        .then((response) => {
-          if (response.ok) {
-            setEmployeeData((prevData) => prevData.filter((item) => item.id !== id));
-            alert('Employee deleted successfully.');
-          } else {
-            alert('Failed to delete employee.');
-          }
-        })
-        .catch((error) => console.error('Error deleting employee:', error));
+      const endpoint = `http://localhost:8000/employee/${id}`;
+
+      try {
+        const resp = await fetch(endpoint, {
+          method: 'DELETE',
+        });
+
+        if (resp.ok) {
+          console.log('Employee deleted successfully');
+          // Update state to remove the deleted employee
+          setEmployeeData((prevData) => prevData.filter((item) => item.id !== id));
+        } else {
+          console.error('Failed to delete the employee');
+        }
+      } catch (error) {
+        console.error('Error deleting employee:', error);
+      }
     }
   };
-  
+
   const LoadDetail = (id) => {
-    navigator('/details/${id}');
+    navigator(`/details/${id}`); // Use template literals correctly
   };
 
   const EditDetail = (id) => {
-    navigator('/edit/${id}');
+    navigator(`/edit/${id}`); // Use template literals correctly
   };
 
   useEffect(() => {
@@ -69,13 +74,13 @@ const EmployeeListing = () => {
                   <td className="py-2 px-4 border-b">{item.phone}</td>
                   <td className="py-2 px-4 border-b flex space-x-2">
                     <button 
-                      onClick={() => EditDetail(item.id)} 
+                      onClick={() => EditDetail(item.id)} // Call EditDetail correctly
                       className="bg-blue-600 text-white py-1 px-2 rounded hover:bg-blue-700"
                     >
                       Edit
                     </button>
                     <button 
-                      onClick={() => removeDetail(item.id)} 
+                      onClick={() => removeDetail(item.id)} // Call removeDetail with id
                       className="bg-red-600 text-white py-1 px-2 rounded hover:bg-red-700"
                     >
                       Delete
@@ -98,3 +103,20 @@ const EmployeeListing = () => {
 };
 
 export default EmployeeListing;
+
+
+
+
+      //   method: 'DELETE',
+      // })
+      //   .then((response) => {
+      //     if (response.ok) {
+      //       setEmployeeData((prevData) => prevData.filter((item) => item.id !== id));
+      //       alert('Employee deleted successfully.');
+      //     } else {
+      //       alert('Failed to delete employee.');
+      //     }
+      //   })
+      //   .catch((error) => console.error('Error deleting employee:', error));
+  //   }
+  // };
